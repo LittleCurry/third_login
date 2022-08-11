@@ -1,10 +1,10 @@
 # third_login
 
-> Golang第三方登录服务端(开发中, 还没上线使用)
 
-### firebase
+### firebase(已和客户端调通)
 
-> 类似国内友盟, 可以在firebase 里直接集成 github,google,facebook,twitter...登录
+> 类似国内友盟, 可以在firebase 里直接集成 google(已测),facebook(已测),匿名(已测),twitter,github...登录
+ 
 [申请流程参考](https://www.freesion.com/article/66471214400)
 
 ```golang
@@ -17,9 +17,10 @@ import (
 
 func main() {
 	third_login.InitFirebase("./configs/firebase.json") // 参考申请流程获取 firebase.json
-	r := NewRouter()
+	r := NewRouter() // 路由自行实现
 	r.Use(Middleware)
 	r.Add("/firebase/login", FirebaseCheckIdToken)
+	err := fasthttp.ListenAndServe("127.0.0.1:9999", r.Handler)
 }
 
 func FirebaseCheckIdToken(ctx *fasthttp.RequestCtx) {
@@ -31,7 +32,7 @@ func FirebaseCheckIdToken(ctx *fasthttp.RequestCtx) {
 }
 ```
 
-### qq
+### qq(未测试)
 
 ```golang
 package main
@@ -48,7 +49,7 @@ func main() {
 }
 ```
 
-### weibo
+### weibo(未测试)
 
 ```golang
 package main
@@ -65,7 +66,7 @@ func main() {
 }
 ```
 
-### wechat
+### wechat(未测试)
 
 ```golang
 package main
@@ -76,23 +77,6 @@ import (
 
 func main() {
 	third := third_login.NewAuthWx(&third_login.Auth_conf{Appid: "xxx", Appkey: "xxx", Rurl: "http://123123.cn"})
-	token, err := third.Get_Token("code")
-	me, err := third.Get_Me(token)
-	userinfo, _ := third.Get_User_Info(token, me.OpenID)
-}
-```
-
-### github
-
-```golang
-package main
-
-import (
-	"third_login"
-)
-
-func main() {
-	third := third_login.NewAuthGithub(&third_login.Auth_conf{Appid: "xxx", Appkey: "xxx", Rurl: "http://123123.cn"})
 	token, err := third.Get_Token("code")
 	me, err := third.Get_Me(token)
 	userinfo, _ := third.Get_User_Info(token, me.OpenID)
