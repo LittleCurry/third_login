@@ -82,3 +82,7 @@ func main() {
 	userinfo, _ := third.Get_User_Info(token, me.OpenID)
 }
 ```
+
+
+欢迎加入golang微信群：
+![微信群](https://bhhz.oss-cn-shanghai.aliyuncs.com/wechat.jpg)
