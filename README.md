@@ -84,6 +84,6 @@ func main() {
 ```
 
 
-欢迎加入golang微信群：
+> 欢迎加入golang微信群：
 
 <img width="150" height="211" src="https://bhhz.oss-cn-shanghai.aliyuncs.com/wechat.jpg"/>
